@@ -6,16 +6,21 @@ services:
         container_name: plex
         #network_mode: host
         environment:
-          - PUID=1000
-          - PGID=1000
-          - TZ=Etc/UTC
-          - VERSION=docker
-          - PLEX_CLAIM="${PLEX_CLAIM}" # optional, good for 4 minutes to assign new installation to your account. Obtained from https://plex.tv/claim 
+            PUID: 1000
+            PGID: 1000
+            TZ: Europe/Warsaw
+            VERSION: docker
+            PLEX_CLAIM: claim-XHPfwgxxxxx
         ports:
-          - "${PORT}:80"
-        #labels:
-        #   caddy: "${CADDY_URL_SUBDOMAIN}.${CADDY_URL_DOMAIN}"
-        #   caddy.reverse_proxy: "{{upstreams 80}}"
+          - "${PORT}:32400"
+        networks:
+            caddy:
+                aliases:
+                  - "{$CADDY_URL_SUBDOMAIN}"
+            default:
+        labels:
+           caddy: "${CADDY_URL_SUBDOMAIN}.${CADDY_URL_DOMAIN}"
+           caddy.reverse_proxy: "{{upstreams 32400}}"
         volumes:
           - plex-config:/config
           - /mnt/share/media/:/media
@@ -85,3 +90,8 @@ services:
 
 volumes:
     plex-config:
+
+networks:
+  caddy:
+    external: true
+
