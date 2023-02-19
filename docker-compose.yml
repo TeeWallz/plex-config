@@ -10,7 +10,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
       - VERSION=docker
-      - PLEX_CLAIM= #optional
+      - PLEX_CLAIM="${PLEX_CLAIM}" # optional, good for 4 minutes to assign new installation to your account. Obtained from https://plex.tv/claim 
     ports:
       - "${PORT}:80"
 #    labels:
