@@ -11,7 +11,9 @@ services:
             TZ: Europe/Warsaw
             VERSION: docker
             PLEX_CLAIM: claim-XHPfwgxxxxx
+            ADVERTISE_IP: ${ADVERTISE_IP}
         ports:
+        #   - "32400:32400"
           - "${PORT}:32400"
         networks:
             caddy:
